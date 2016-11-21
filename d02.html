@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>d02</title>
+	</head>
+	<body>
+		<h2 id="msg"></h2>
+	</body>
+	<script type="text/javascript">
+		var msg=document.getElementById("msg");
+		msg.innerHTML+=localStorage.name+"<br/>"+localStorage.age+"<br/>"+localStorage.sex;
+		//监听
+			window.addEventListener("storage",function(obj){
+				alert(obj.oldValue+obj.newValue+obj.url);
+			},true)
+	</script>
+</html>

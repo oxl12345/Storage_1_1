@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>sessionStorage本地存储</title>
+		<script type="text/javascript">
+			//添加
+			function Add() {
+				sessionStorage.name = "小明";
+				sessionStorage.setItem("sex", "男");
+				sessionStorage["age"] = 23;
+			}
+			//取值
+			function Get() {
+				var msg = document.getElementById("msg");
+				msg.innerHTML += sessionStorage.name+"<br/>"+
+				sessionStorage["sex"]+"<br/>"+
+				sessionStorage.getItem("age");
+			}
+
+			//修改
+			function Update() {
+				sessionStorage.name = "小红";
+				sessionStorage.setItem("sex", "女");
+				sessionStorage["age"] = 21;
+			}
+			//删除
+			function Delete() {
+				//删除单个
+				sessionStorage.removeItem("name");
+			}
+
+			function DeleteAll() {
+				//删除全部
+				sessionStorage.clear();
+			}
+			
+		</script>
+	</head>
+
+	<body>
+		<input type="button" name="btnAdd" id="btnAdd" value="添加" onclick="Add()" />
+		<input type="button" name="btnGet" id="btnGet" value="取值" onclick="Get()" />
+		<input type="button" name="btnUpdate" id="btnUpdate" value="修改" onclick="Update()" />
+		<input type="button" name="btnDelete" id="btnDelete" value="删除单个" onclick="Delete()" />
+		<input type="button" name="btnDeleteAll" id="btnDeleteAll" value="删除全部" onclick="DeleteAll()" />
+		<a href="d04.html" target="_blank">d02</a>
+		<h3 id="msg"></h3>
+	</body>
+
+</html>

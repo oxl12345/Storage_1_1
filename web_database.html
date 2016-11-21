@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Web Database 的操作</title>
+
+	</head>
+
+	<body>
+		<button onclick="createTable()" value="">创建表</button>
+		<button onclick="dropTable()" value="">删除表</button>
+		<table border="1" cellspacing="0" cellpadding="0" id=tab_book width="98%" style="text-align: center;">
+			<tr>
+				<th>编号</th>
+				<th>书名</th>
+				<th>价格</th>
+				<th>出版社</th>
+				<th>删除</th>
+				<th>编辑</th>
+			</tr>
+		</table>
+		<fieldset>
+			<legend>添加数据</legend>
+			<input type="hidden" name="hidid" id="hidid" value="" />
+			<p><label for="bookname">&nbsp;&nbsp;&nbsp;&nbsp;书名：</label><input type="text" name="bookname" id="bookname" value="" /></p>
+			<p><label for="price">&nbsp;&nbsp;&nbsp;&nbsp;价格：</label><input type="text" name="price" id="price" value="" /></p>
+			<p><label for="publish">出版社：</label><input type="text" name="publish" id="publish" value="" />
+				<p><input type="button" name="add" id="add" value="添加" onclick="insert()" />
+				<input type="button" name="update" id="update" value="修改" onclick="update()" /></p>
+		</fieldset>
+		<h4 id="msg"></h4>
+
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//创建数据库：Books
+			var db = openDatabase("Books", 1.0, "图书", 1024 * 1024 * 3, function() {
+				if(db)
+					log("创建数据库成功！");
+			});
+
+			//创建表
+			function createTable() {
+				db.transaction(function(tx) {
+					tx.executeSql("create table  if not exists book(id integer primary key autoincrement,bookname text,price double,publish text)", [],
+						function(tx, result) {
+							log("创建表book成功！");
+						},
+						function(tx, error) {
+							log("创建失败！" + error.Message)
+						});
+				});
+			}
+			
+				//删除表
+			function dropTable() {
+				db.transaction(function(tx) {
+					tx.executeSql("drop table book", [],
+						function(tx, result) {
+							log("删除表book成功！");
+						},
+						function(tx, error) {
+							log("删除失败！" + error.Message)
+						});
+				});
+			}
+			
+			//添加数据
+			function insert() {
+				db.transaction(function(tx) {
+					tx.executeSql("insert into book(bookname ,price ,publish) values(?,?,?)", [$("#bookname").val(), $("#price").val(), $("#publish").val()],
+						function(tx, result) {
+							log("添加数据成功！");
+							show();
+						},
+						function(tx, error) {
+							log("添加数据失败！" + error.Message)
+						});
+				});
+			}
+			show();
+			//显示数据
+			function show() {
+				$("#tab_book tr:gt(0)").remove();
+				db.transaction(function(tx) {
+					tx.executeSql("select id,bookname,price,publish from book", [],
+						function(tx, result) {
+							for(var i = 0; i < result.rows.length; i++) {
+								var tr = $("<tr/>");
+								$("<td/>").text(result.rows.item(i)["id"]).appendTo(tr);
+								$("<td/>").text(result.rows.item(i)["bookname"]).appendTo(tr);
+								$("<td/>").text(result.rows.item(i)["price"]).appendTo(tr);
+								$("<td/>").text(result.rows.item(i)["publish"]).appendTo(tr);
+								var del = $("<a href='#' onclick='del(" + result.rows.item(i)['id'] + ",this)'>删除</a>");
+								var audit = $("<a href='#' onclick='edit(" + result.rows.item(i)['id'] + ",this)'>编辑</a>");
+								$("<td/>").append(del).appendTo(tr);
+								$("<td/>").append(audit).appendTo(tr);
+								tr.appendTo("#tab_book");
+							}
+						},
+						function(tx, error) {
+							log("查询数据失败！" + error.Message)
+						});
+				});
+			}
+			//删除数据			
+			function del(id, link) {
+				db.transaction(function(tx) {
+					tx.executeSql("delete from book where id=?", [id],
+						function(tx, result) {
+							log("删除数据成功！");
+							$(link).closest("tr").remove();
+						},
+						function(tx, error) {
+							log("删除数据失败！" + error.Message)
+						});
+				});
+			}
+
+			//编辑数据
+			function edit(id) {
+				db.transaction(function(tx) {
+					tx.executeSql("select id,bookname,price,publish from book where id=?", [id],
+						function(tx, result) {
+							$("#bookname").val(result.rows.item(0)["bookname"]);
+							$("#price").val(result.rows.item(0)["price"]);
+							$("#publish").val(result.rows.item(0)["publish"]);
+							$("#hidid").val(result.rows.item(0)["id"]);
+						},
+						function(tx, error) {
+							log("编辑数据失败！" + error.Message)
+						});
+				});
+			}
+			//修改数据
+			function update() {
+				db.transaction(function(tx) {
+					tx.executeSql("update book set bookname=?,price=? ,publish=? where id=?", [$("#bookname").val(), $("#price").val(), $("#publish").val(), $("#hidid").val()],
+						function(tx, result) {
+							log("修改数据成功！");
+							show();
+						},
+						function(tx, error) {
+							log("修改数据失败！" + error.Message)
+						});
+				});
+			}
+
+			//显示信息
+			function log(msg) {
+				$("#msg")[0].innerHTML += msg;
+			}
+		</script>
+	</body>
+
+</html>

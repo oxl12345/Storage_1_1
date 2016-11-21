@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>简易书架</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<style>
+			* {
+				font-family: "microsoft yahei";
+			}
+			
+			.cart {
+				width: 30px;
+				height: 25px;
+				text-align: right;
+				cursor: pointer;
+			}
+			
+			button {
+				border-radius: 5px;
+				height: 30px;
+				width: 50px;
+				padding: 5px;
+				background-color: #6495ED;
+				color: white;
+				cursor: pointer;
+			}
+			
+			button:hover {
+				background-color: darkorange;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+			
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			
+			.oa-contact-avatar img {
+				border-radius: 50%;
+			}
+			
+			.oa-contact-content {
+				width: 100%;
+			}
+			
+			.oa-contact-name {
+				margin-right: 20px;
+			}
+			
+			.oa-contact-name,
+			oa-contact-position {
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">简易书架</h1>
+		</header>
+		<!--导航-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">最新图书</span>
+			</a>
+
+			<a class="mui-tab-item" href="#tabbar-with-chat">
+				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">新书上架</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">图书管理</span>
+			</a>
+
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">设置</span>
+			</a>
+		</nav>
+		<div class="mui-content">
+
+			<div id="tabbar" class="mui-control-content mui-active">
+
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li id="switch" class="mui-table-view-cell">
+						定时轮播
+						<div class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					额外增加的一个节点(循环轮播：第一个节点是最后一张轮播)
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="images/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/shuijiao.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/muwu.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/cbd.jpg">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="images/shuijiao.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div> <div hidden="hidden">
+				<button value="" id="btnCreateTable">创建表</button>
+				<button value="" id="btnDropTable">删除表</button>
+				</div>
+				<div class="title">我的购物车</div>
+				<ul id="books_List_cart" class="mui-table-view mui-table-view-chevron">
+				</ul>
+				<div class="title">
+					图书列表
+				</div>
+				<ul id="books_List" class="mui-table-view mui-table-view-chevron">
+				</ul>
+			</div>
+		</div>
+			<div id="tabbar-with-chat" class="mui-control-content">
+				<div class="title">添加图书</div>
+			
+				<p><label for="bookname">书名：</label><input type="text" name="bookname" id="bookname" value="" /></p>
+				<p><label for="price">价格：</label><input type="text" name="price" id="price" value="" /></p>
+				<p><label for="publish">出版社：</label>
+					<input type="text" name="publish" id="publish" list="dl1" value="" />
+					<datalist id="dl1">
+						<option>北京出版社</option>
+						<option>玉林出版社</option>
+						<option>清华出版社</option>
+						<option>复旦出版社</option>
+						<option>河北出版社</option>
+					</datalist>
+					<p><input type="file" value="" id="demo_input" /><input type="hidden" id="hidSrc" /</p>
+						<p id="img_area"></p>
+						<p><input type="button" name="btnAdd" id="btnAdd" value="添加" /></p>
+		
+			</div>
+			
+			<div id="tabbar-with-contact" class="mui-control-content">
+				<div class="title">图书管理</div>
+
+				<ul id="books_List2" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+				</ul>
+				<input type="hidden" name="hidid" id="hidid" value="" />
+				<p><label for="ubookname">书名：</label><input type="text" name="ubookname" id="ubookname" value="" /></p>
+				<p><label for="uprice">价格：</label><input type="text" name="uprice" id="uprice" value="" /></p>
+				<p><label for="upublish">出版社：</label>
+					<input type="text" name="upublish" id="upublish" list="dl1" value="" />
+					<p><input type="file" value="" id="udemo_input" /><input type="hidden" id="uhidSrc" /</p>
+						<p id="uimg_area"></p>
+						<p>
+							<input type="button" name="btnUpdate" id="btnUpdate" value="修改" /></p>
+			</div>
+			<div id="tabbar-with-map" class="mui-control-content">
+				<div class="title">这是div模式选项卡中的第4个子页面，该页面展示一个常见的设置示例.</div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							新消息通知
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+	</body>
+	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.min.js"></script>
+
+	<script>
+		//[封装二：]封装js
+		var appDb = {
+			//打开数据库
+			opendb: function() {
+				this.db = openDatabase("Books", 1.0, "图书", 1024 * 1024 * 3, function() {
+					if(db)
+						appDb.log("创建数据库成功！");
+				});
+			},
+			//初始化
+			init: function() {
+				this.opendb();
+				this.show("#books_List");
+				this.show("#books_List2");
+				this.bindEvent();
+				appDb.log("初始化成功！");
+			},
+			//绑定事件
+			bindEvent: function() {
+				$("#btnCreateTable").click(appDb.createTable);
+				$("#btnDropTable").click(appDb.dropTable);
+				$("#btnAdd").click(appDb.insert);
+				$("#btnUpdate").click(appDb.update);
+				$("#btnDelete").click(appDb.del);
+			},
+			//通用sql
+			exeSql: function(sql, title, param, callback) {
+				title || 操作; //如果title为空，则取后面的'操作'
+				appDb.db.transaction(function(tx) {
+					tx.executeSql(sql, param || [],
+						function(tx, result) {
+							appDb.log(title + "成功！");
+							if(callback)
+								callback(result);
+						},
+						function(tx, error) {
+							appDb.log(title + "失败！" + error.Message)
+						});
+				});
+			},
+			//创建表
+			createTable: function() {
+				appDb.exeSql("create table  if not exists book(id integer primary key autoincrement,bookname text,price double,publish text,imgSrc text)", "创建表");
+			},
+			//删除表
+			dropTable: function() {
+				appDb.exeSql("drop table book", "删除表");
+			},
+			//添加数据
+			insert: function() {
+				appDb.exeSql("insert into book(bookname ,price ,publish,imgSrc) values(?,?,?,?)", "添加数据", [$("#bookname").val(), $("#price").val(), $("#publish").val(), $("#hidSrc").val()], function(result) {
+					appDb.show("#books_List2");
+				});
+			},
+			//显示数据 ：bl为参数
+			show: function(bl) {
+				if(bl == null) {
+					bl = "#books_List";
+				}
+				appDb.exeSql("select id,bookname,price,publish,imgSrc from book", "显示", [], function(result) {
+					$(bl + " li").remove();
+					for(var i = 0; i < result.rows.length; i++) {
+						var li = $("<li class='mui-table-view-cell mui-media'/>");
+						var a = $("<a class='mui-navigate-right'/>");
+						var img = $("<img class='mui-media-object mui-pull-left'  src='" + result.rows.item(i)['imgSrc'] + "'/>");
+						var div = $("<div class='mui-media-body'/>");
+						var p = $("<p class='mui-ellipsis'/>");
+						a.appendTo(li);
+						img.appendTo(a);
+						div.append(result.rows.item(i)["bookname"]).appendTo(a);
+						p.text("价格仅售：" + result.rows.item(i)["price"] + "￥").appendTo(div);
+						if(bl == "#books_List") {
+							$("<p style='line-height: 30px;padding: 10px;'><img src='images/cart.png' class='cart'/><a onclick='appDb.Addcart(" + result.rows.item(i)['id'] + ")' href='#' >加入购物车</a><p/>").appendTo(p);
+						} else {
+							var del = $("<button onclick='appDb.del(" + result.rows.item(i)['id'] + ",this)'>删除</button>");
+							var audit = $("<button onclick='appDb.edit(" + result.rows.item(i)['id'] + ",this)'>编辑</button>");
+							del.appendTo(div);
+							audit.appendTo(div);
+						}
+
+						li.appendTo(bl);
+					}
+				});
+			},
+			//加入购物车
+			Addcart: function(id) {
+				appDb.exeSql("select id,bookname,price,publish,imgSrc from book where id=?", "显示", [id], function(result) {
+					var li = $("<li class='mui-table-view-cell mui-media'/>");
+					var a = $("<a class='mui-navigate-right'/>");
+					var img = $("<img class='mui-media-object mui-pull-left' src='" + result.rows.item(0)['imgSrc'] + "'/>");
+					var div = $("<div class='mui-media-body'/>");
+					var p = $("<p class='mui-ellipsis'/>");
+					a.appendTo(li);
+					img.appendTo(a);
+					div.append(result.rows.item(0)["bookname"]).appendTo(a);
+					p.text("价格" + result.rows.item(0)["price"] + "￥" + "  数量：1" + "<input type='checkbox'/>").appendTo(div);
+
+					li.appendTo("#books_List_cart");
+				});
+			},
+			//删除数据			
+			del: function(id, link) {
+				appDb.exeSql("delete from book where id=?", "删除数据", [id], function(result) {
+					$(link).closest("li").remove();
+				});
+			},
+			//编辑数据
+			edit: function(id) {
+				appDb.exeSql("select id,bookname,price,publish,imgSrc from book where id=?", "编辑数据", [id], function(result) {
+					//把数据加载到文本框中
+					$("#ubookname").val(result.rows.item(0)["bookname"]);
+					$("#uprice").val(result.rows.item(0)["price"]);
+					$("#upublish").val(result.rows.item(0)["publish"]);
+					$("#hidid").val(result.rows.item(0)["id"]);
+					$("#hidSrc").val(result.rows.item(0)["imgSrc"]);
+					$("#uhidSrc").val(result.rows.item(0)["imgSrc"]);
+					$("#hidSrc").val("");
+
+				});
+			},
+			//修改数据
+			update: function() {
+				if($("#hidid").val()) {
+					appDb.exeSql("update book set bookname=?,price=? ,publish=?,imgSrc=? where id=?", "修改", [$("#ubookname").val(), $("#uprice").val(), $("#upublish").val(), $("#uhidSrc").val(), $("#hidid").val()],
+						function() {
+							appDb.show("#books_List2");
+							$("#hidid").val("");
+							$("#hidSrc").val("");
+						});
+				} else {
+					appDb.log("请先选择要操作的记录！")
+				}
+			},
+			//显示信息
+			log: function(msg) {
+				mui.toast(msg);
+			}
+		}
+
+		appDb.init();
+		//加载图片
+		window.onload = function() {
+			var input = document.getElementById("demo_input");
+			var img_area = document.getElementById("img_area");
+
+			var uinput = document.getElementById("udemo_input");
+			var uimg_area = document.getElementById("uimg_area");
+
+			if(typeof(FileReader) === 'undefined') {
+				result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！";
+				uresult.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！";
+				input.setAttribute('disabled', 'disabled');
+				uinput.setAttribute('disabled', 'disabled');
+			} else {
+				input.addEventListener('change', readFile, false);
+				uinput.addEventListener('change', readFile, false);
+			}
+		}
+
+		function readFile() {
+			var uSrc = $("#uhidSrc");
+			var Src = $("#hidSrc");
+			var file = this.files[0];
+			//console.log(file);//输出文件	
+			if(file.name.contains('png'|'jpg'))
+			alert("1");
+			else
+			alert("3");
+			Src.val("images\/" + file.name);
+
+			uSrc.val("images\/" + file.name); //把路径存放在hidSrc控件中	
+			alert(uSrc.val());
+
+			//判断类型如果不是图片就返回 去掉就可以上传任意文件
+			if(!/image\/\w+/.test(file.type)) {
+				alert("请确保文件为图像类型");
+				return false;
+			}
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) {
+				img_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><标签img src="' + this.result + '" alt=""/>';
+				uimg_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><img src="' + this.uresult + '" alt=""/>';
+			}
+		}
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		var slider = mui("#slider");
+		document.getElementById("switch").addEventListener('toggle', function(e) {
+			if(e.detail.isActive) {
+				slider.slider({
+					interval: 5000
+				});
+			} else {
+				slider.slider({
+					interval: 0
+				});
+			}
+		});
+	</script>
+
+</html>

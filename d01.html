@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Local Storage本地存储</title>
+		<script type="text/javascript">
+			//添加
+			function Add() {
+				localStorage.name = "小明";
+				localStorage.setItem("sex", "男");
+				localStorage["age"] = 23;
+			}
+			//取值
+			function Get() {
+				var msg = document.getElementById("msg");
+				msg.innerHTML += localStorage.name+"<br/>"+
+				localStorage["sex"]+"<br/>"+
+				localStorage.getItem("age");
+			}
+
+			//修改
+			function Update() {
+				localStorage.name = "小红";
+				localStorage.setItem("sex", "女");
+				localStorage["age"] = 21;
+			}
+			//删除
+			function Delete() {
+				//删除单个
+				localStorage.removeItem("name");
+			}
+
+			function DeleteAll() {
+				//删除全部
+				localStorage.clear();
+			}
+			
+		</script>
+	</head>
+
+	<body>
+		<input type="button" name="btnAdd" id="btnAdd" value="添加" onclick="Add()" />
+		<input type="button" name="btnGet" id="btnGet" value="取值" onclick="Get()" />
+		<input type="button" name="btnUpdate" id="btnUpdate" value="修改" onclick="Update()" />
+		<input type="button" name="btnDelete" id="btnDelete" value="删除单个" onclick="Delete()" />
+		<input type="button" name="btnDeleteAll" id="btnDeleteAll" value="删除全部" onclick="DeleteAll()" />
+		<a href="d02.html" target="_blank">d02</a>
+		<h3 id="msg"></h3>
+	</body>
+
+</html>

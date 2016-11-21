@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册页面</title>
+		<style type="text/css">
+		body{
+			background: #CCCCCC;
+		}
+		header{
+			height: 35px;
+			text-align: center;
+			background-color: gray;
+			color: white;
+		}
+			fieldset{
+				width: 50%;
+				margin: 20px auto;
+				padding: 20px  30px;
+								color: white;
+				border-radius: 8px;
+				background-color: darkgray;
+			}
+			fieldset p{
+				font-size: 11pt;;
+			}
+			#contain{
+				width: 60%;
+				margin: 0 auto;			
+			}
+			.btn1{
+				width:70px;
+				heigth:40px;
+				font-size: 12pt;
+				color: white;
+				border-radius: 10px;
+				background-color: cornflowerblue;
+			}
+				.btn1:hover{			
+				color: black;
+				border-radius: 10px;
+				cursor: pointer;
+				background-color: gainsboro;
+				text-align: center;
+			}
+			.left{
+				margin-left: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h3>注册页面</h3>
+		</header>
+		<fieldset><legend></legend>
+			<div id="contain">
+			<p><label for="username">&nbsp;&nbsp;&nbsp;&nbsp;用户名：</label><input type="text" name="username" id="username"  placeholder="请输入用户名"/></p>
+			<p class="left"><label for="email">邮箱：</label><input type="text" name="email" id="email"  placeholder="请输入邮箱"/></p>
+			<p class="left"><label for="pwd">密码：</label><input type="text" name="pwd" id="pwd"  placeholder="请输入登录密码"/></p>
+			<p><label for="pwd2">确认密码：</label><input type="text" name="pwd" id="pwd2"  placeholder="请输入确认密码"/></p>
+			<p class="left"><label for="pwd2">性别：</label><label for="man">男</label><input type="checkbox" name="sex" id="man"  />
+			<label for="woman">女</label><input type="checkbox" name="sex" id="woman"  /></p>
+			<p class="left">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chkRemeber" id="chkRemeber" value="" />记住密码</p>
+			<p><input type="button" name="reg" id="reg" value="注册" class="btn1"/></p>
+			</div>
+		</fieldset>
+	
+	<script type="text/javascript">
+		
+	</script>
+	</body>
+	
+</html>
